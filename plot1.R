@@ -1,0 +1,6 @@
+data<-read.table(pipe('findstr "^[1-2]/2/2007" "household_power_consumption.txt"'), sep=';', header=F, na.strings = "?")
+colnames(data) <-names(read.table("household_power_consumption.txt", sep=";", header=T, nrows=1))
+datetime <- strptime(paste(data$Date, data$Time), "%d/%m/%Y %H:%M:%S")
+hist(data$Global_active_power, main="Global Active Power", col="red", xlab = "Global Active Power (kilowatts)", ylab = "Frequency")
+dev.copy(png, file="plot1.png", height=480, width=480)
+dev.off()
