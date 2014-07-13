@@ -1,0 +1,7 @@
+data<-read.table(pipe('findstr "^[1-2]/2/2007" "household_power_consumption.txt"'), sep=';', header=F, na.strings = "?")
+colnames(data) <-names(read.table("household_power_consumption.txt", sep=";", header=T, nrows=1))
+datetime <- strptime(paste(data$Date, data$Time), "%d/%m/%Y %H:%M:%S")
+Sys.setlocale("LC_TIME", "English_United States.1252")
+plot(datetime, data$Global_active_power, ylab = "Global Active Power (kilowatts)", xlab="",type="l")
+dev.copy(png, file="plot2.png", height=480, width=480)
+dev.off()
